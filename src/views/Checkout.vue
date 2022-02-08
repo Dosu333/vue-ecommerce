@@ -191,7 +191,6 @@ export default {
                             }
                         })
                         .catch(error => {
-                            // alert('Something went wrong, Please try again')
                              errors.push('Something went wrong. Please try again.')
                             console.log(error.error)
                         })
