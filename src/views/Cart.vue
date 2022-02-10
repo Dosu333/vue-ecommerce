@@ -238,9 +238,9 @@ export default {
         // }
     },
     computed: {
-        async cartTotalLength() {
-            await console.log(this.cart.items)
-            return this.cart.items.reduce((acc, curVal) => {
+        cartTotalLength() {
+            // await console.log(this.cart.items)
+            return this.cart['items'].reduce((acc, curVal) => {
                 return acc += curVal.quantity
             }, 0)
         },
