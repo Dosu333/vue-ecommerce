@@ -239,14 +239,17 @@ export default {
     },
     computed: {
         cartTotalLength() {
-            return this.cart.items.reduce((acc, curVal) => {
-                return acc += curVal.quantity
-            }, 0)
+            console.log(this.cart)
+            return 0
+            // return this.cart.items.reduce((acc, curVal) => {
+            //     return acc += curVal.quantity
+            // }, 0)
         },
-        cartTotalPrice() {
-            return this.cart.items.reduce((acc, curVal) => {
-                return acc += curVal.product.price * curVal.quantity
-            }, 0)
+        cartTotalPrice() { 
+            return 0
+            // return this.cart.items.reduce((acc, curVal) => {
+            //     return acc += curVal.product.price * curVal.quantity
+            // }, 0)
         },
     }
 }
