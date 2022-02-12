@@ -133,8 +133,8 @@ export default {
   computed: {
     cartTotalLength() {
       let totalLength = 0
-      // await console.log(this.cart.items)
-      return this.cart['items'].reduce((acc, curVal) => {
+
+      return this.cart.items.reduce((acc, curVal) => {
                 return acc += curVal.quantity
             }, 0)
     }
