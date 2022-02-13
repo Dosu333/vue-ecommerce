@@ -37,8 +37,8 @@ export default createStore({
         state.shippingFee = JSON.parse(localStorage.getItem('shippingFee'))
       } else {
         localStorage.setItem('cart', JSON.stringify(state.cart))
-        localStorage.setItem('cart', JSON.stringify(state.shippingDetails))
-        localStorage.setItem('cart', JSON.stringify(state.shippingFee))
+        localStorage.setItem('shippingDetails', JSON.stringify(state.shippingDetails))
+        localStorage.setItem('shippingFee', JSON.stringify(state.shippingFee))
       }
     },
     async setStoreDetails(state, _callback) {
