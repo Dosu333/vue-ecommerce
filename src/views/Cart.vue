@@ -29,7 +29,7 @@
                 <p v-else>You don't have any products in your cart...</p>
             </div>
 
-            <div class="column is-12 box">
+            <div v-if="mounted" class="column is-12 box">
                 <h2 class="subtitle">Summary</h2>
 
                 <strong>N{{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
@@ -107,10 +107,10 @@
 
                 <div id="card-element" class="mb-5"></div> -->
 
-                <template v-if="cartTotalLength">
+                <template v-if="mounted">
                     <hr>
 
-                    <button class="button is-dark" @click="submitForm">Proceed to checkout</button>
+                    <button v-if="cartTotalLength" class="button is-dark" @click="submitForm">Proceed to checkout</button>
                 </template>
             </div>
         </div>
@@ -128,8 +128,27 @@ export default {
     },
     data() {
         return {
+            mounted: false,
             cart: {
-                items: []
+                items: [
+                    // {
+                    //     id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    //     category_name: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    //     product_info: {
+                    //         id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    //         sku: "string",
+                    //         color: "string",
+                    //         weight: "string",
+                    //         material: "string",
+                    //         quantity: 0
+                    //     },
+                    //     name: "string",
+                    //     description: "string",
+                    //     price: 0,
+                    //     main_image: "string",
+                    //     get_absolute_url: "string"
+                    // }
+                ]
             },
             stripe: {},
             card: {},
@@ -146,6 +165,7 @@ export default {
     mounted() {
         document.title = `Cart | ${this.$store.state.storeDetails.store_name}`
         this.cart = this.$store.state.cart
+        this.mounted = true
     },
     methods: {
         removeFromCart(item) {
@@ -239,17 +259,17 @@ export default {
     },
     computed: {
         cartTotalLength() {
-            console.log(this.cart)
-            return 0
-            // return this.cart.items.reduce((acc, curVal) => {
-            //     return acc += curVal.quantity
-            // }, 0)
+            console.log(this.cart.items)
+            // return 0
+            return this.cart.items.reduce((acc, curVal) => {
+                return acc += curVal.quantity
+            }, 0)
         },
         cartTotalPrice() { 
-            return 0
-            // return this.cart.items.reduce((acc, curVal) => {
-            //     return acc += curVal.product.price * curVal.quantity
-            // }, 0)
+            // return 0
+            return this.cart.items.reduce((acc, curVal) => {
+                return acc += curVal.product.price * curVal.quantity
+            }, 0)
         },
     }
 }
