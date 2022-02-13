@@ -4,7 +4,27 @@ import axios from 'axios'
 export default createStore({
   state: {
     cart: {
-      items: [],
+      items: [{
+        product: 
+        {
+            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            category_name: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            product_info: {
+                id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                sku: "string",
+                color: "string",
+                weight: "string",
+                material: "string",
+                quantity: 0
+            },
+            name: "string",
+            description: "string",
+            price: 0,
+            main_image: "string",
+            get_absolute_url: "string"
+        },
+        quantity: 0
+    },],
     },
     isAuthenticated: false,
     token: '',
