@@ -59,7 +59,7 @@
             
             <router-link to='/cart' class='button is-success'>
               <span class='icon'><i class='fa fa-shopping-cart'></i></span>
-              <span v-if="mounted">Cart ({{ cartTotalLength }})</span>
+              <span>Cart ({{ cartTotalLength }})</span>
             </router-link>
             </div>
           </div>

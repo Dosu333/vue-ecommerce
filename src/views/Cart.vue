@@ -107,7 +107,7 @@
 
                 <div id="card-element" class="mb-5"></div> -->
 
-                <template v-if="cartTotalLength">
+                <template v-if="cartTotalLength" >
                     <hr>
 
                     <button class="button is-dark" @click="submitForm">Proceed to checkout</button>
@@ -131,27 +131,23 @@ export default {
             mounted: false,
             cart: {
                 items: [
-                    {
-                        product: 
-                        {
-                            id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                            category_name: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                            product_info: {
-                                id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                                sku: "string",
-                                color: "string",
-                                weight: "string",
-                                material: "string",
-                                quantity: 0
-                            },
-                            name: "string",
-                            description: "string",
-                            price: 0,
-                            main_image: "string",
-                            get_absolute_url: "string"
-                        },
-                        quantity: 0
-                    },
+                    // {
+                    //     id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    //     category_name: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    //     product_info: {
+                    //         id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    //         sku: "string",
+                    //         color: "string",
+                    //         weight: "string",
+                    //         material: "string",
+                    //         quantity: 0
+                    //     },
+                    //     name: "string",
+                    //     description: "string",
+                    //     price: 0,
+                    //     main_image: "string",
+                    //     get_absolute_url: "string"
+                    // }
                 ]
             },
             stripe: {},
