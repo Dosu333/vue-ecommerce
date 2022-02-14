@@ -99,7 +99,7 @@ export default {
   },
   beforeCreate() {
     this.$store.commit('initializeStore')
-    // this.$store.commit('setStoreDetails', function(){return undefined})
+    
 
     const token = this.$store.state.token
 
