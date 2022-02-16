@@ -2,7 +2,7 @@
     <div class="column is-3">
       <div class="box">
         <figure class='image mb-4'>
-          <img :src="product.main_image" width="300" height="200">
+          <img :src="product.main_image" class='thumbnail'>
         </figure>
 
         <h5 class="is-size-4">{{ product.name }}</h5>
@@ -27,5 +27,11 @@ export default {
     margin-top: -1.25rem;
     margin-left: -1.25rem;
     margin-right: -1.25rem;
+  }
+  .thumbnail {
+    /* max-width: 300px; */
+    max-height: 200px;
+    /* min-width: 300px; */
+    min-height: 200px;
   }
 </style>

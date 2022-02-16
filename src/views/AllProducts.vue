@@ -4,7 +4,7 @@
            <CategoryBox
             v-for="category in categories"
             v-bind:key="category.id"
-            v-bind:category="category"/>
+            v-bind:category="category"/><br>
        </template>
 
        <template v-else>
