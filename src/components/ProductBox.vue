@@ -30,8 +30,8 @@ export default {
   }
   .thumbnail {
     /* max-width: 300px; */
-    max-height: 200px;
+    max-height: 400px;
     /* min-width: 300px; */
-    min-height: 200px;
+    min-height: 400px;
   }
 </style>
