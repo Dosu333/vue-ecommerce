@@ -46,6 +46,7 @@
 
                 <tr>Items Price: N{{ cartTotalPrice.toFixed(2) }}</tr>
                 <tr>Shipping Fee: N{{ shippingFee.toFixed(2) }}</tr>
+                <tr>Weight: {{ cartTotalWeight.toFixed(2) }}</tr>
                 <tr><strong>Total: </strong>N{{ checkoutTotalPrice.toFixed(2) }}</tr>
 
 
@@ -234,7 +235,12 @@ export default {
         },
         checkoutTotalPrice() {
             return this.cartTotalPrice + this.shippingFee
-        }    
+        },
+        cartTotalWeight() {
+            return this.cart.items.reduce((acc, curVal) => {
+                return acc += curVal.product.specification.weight
+            }, 0)
+        }  
     }
 }
 </script>
