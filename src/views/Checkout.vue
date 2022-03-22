@@ -44,10 +44,10 @@
             <div class="column is-12 box">
                 <h2 class="subtitle">Summary</h2>
 
-                <tr>Items Price: N{{ cartTotalPrice.toFixed(2) }}</tr>
-                <tr>Shipping Fee: N{{ shippingFee.toFixed(2) }}</tr>
-                <tr>Weight: {{ cartTotalWeight.toFixed(2) }}</tr>
-                <tr><strong>Total: </strong>N{{ checkoutTotalPrice.toFixed(2) }}</tr>
+                <tr>Items Price: &#8358;{{ cartTotalPrice.toFixed(2) }}</tr>
+                <tr>Shipping Fee: &#8358;{{ shippingFee.toFixed(2) }}</tr>
+                <!-- <tr>Weight: {{ cartTotalWeight.toFixed(2) }}</tr> -->
+                <tr><strong>Total: </strong>&#8358;{{ checkoutTotalPrice.toFixed(2) }}</tr>
 
 
                 <hr>
@@ -138,6 +138,28 @@ export default {
             localStorage.setItem('shippingFee', JSON.stringify(this.shippingFee))
        
         },
+        // flutterwaveHandler() {
+        //     router = this.$router
+
+        //     FlutterwaveCheckout({
+        //         public_key: "FLWPUBK_TEST-4c36102707c08a700bb976bcea454237-X",
+        //         tx_ref: "",
+        //         amount: this.cartTotalPrice + this.shippingFee,
+        //         currency: "NGN",
+        //         payment_options: "card, mobilemoneyghana, ussd",
+        //         redirect_url: `${window.location.origin}/cart/success`,
+        //         customer: {
+        //             email: this.shippingDetails.email,
+        //             phone_number: this.shippingDetails.phone,
+        //             name: this.shippingDetails.first_name + this.shippingDetails.last_name,
+        //         },
+        //         customizations: {
+        //             title: this.$store.state.storeDetails.store_name,
+        //             description: "Payment from your Boxin store",
+        //             logo: this.$store.state.storeDetails.logo || document.getElementById('favicon').getAttribute('href'),
+        //         },
+        //     });
+        // },
         paystackHandler() {
             const items = []
             // self.orderCreate = this.createOrder()
@@ -159,6 +181,7 @@ export default {
 
             const data = {
                 'first_name': this.shippingDetails.first_name,
+                'vendor': this.$store.state.storeDetails.id,
                 'last_name': this.shippingDetails.last_name,
                 'email': this.shippingDetails.email,
                 'address': this.shippingDetails.address,
@@ -172,7 +195,7 @@ export default {
             }
             
             var handler = PaystackPop.setup({
-                key: 'pk_live_b32902e7607a60b0952d8216a4d5ed22369adc49',
+                key: 'pk_test_b3b4e25efbb878f097556f7238f24588ea7f5e67',
                 email: this.shippingDetails.email,
                 amount: (this.cartTotalPrice + this.shippingFee) * 100,
                 callback: function(response) {

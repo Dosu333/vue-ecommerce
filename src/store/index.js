@@ -15,6 +15,7 @@ export default createStore({
       store_domain: '',
       store_name: '',
       store_description: '',
+      logo: null,
       primary_store_color: '',
       secondary_store_color: '',
     },
@@ -56,6 +57,7 @@ export default createStore({
                   state.storeDetails.id = response.data.store_details.id
                   state.storeDetails.store_domain = response.data.store_details.store_domain
                   state.storeDetails.store_name = response.data.store_details.store_name
+                  state.storeDetails.logo = response.data.store_details.logo
                   state.storeDetails.store_description = response.data.store_details.store_description
                   state.storeDetails.primary_store_color = response.data.store_details.primary_store_color
                   state.storeDetails.secondary_store_color = response.data.store_details.secondary_store_color
@@ -95,7 +97,6 @@ export default createStore({
       state.shippingDetails.phone = data.phone
       state.shippingDetails.address = data.address
       state.shippingDetails.zipcode = data.zipcode
-      state.shippingDetails.place = data.place
 
       localStorage.setItem('shippingDetails', JSON.stringify(state.shippingDetails))
 

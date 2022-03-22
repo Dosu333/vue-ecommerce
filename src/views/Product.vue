@@ -16,7 +16,7 @@
                 <p v-if="mounted"><strong v-if="info.color">Color: </strong>{{ product.product_info.color }}</p>
                 <p v-if="mounted"><strong v-if="info.material">Material: </strong>{{ product.product_info.material }}</p>
 
-                <p><strong>Price: </strong>N{{ product.price }}</p>
+                <p><strong>Price: </strong>&#8358;{{ product.price }}</p>
 
                 <div class="field has-addons mt-6">
                     <div class="control">

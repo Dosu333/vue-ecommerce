@@ -3,13 +3,13 @@
 <template>
     <tr>
         <td><router-link :to="item.product.get_absolute_url">{{ item.product.name }}</router-link></td>
-        <td>N{{ item.product.price }}</td>
+        <td>&#8358;{{ item.product.price }}</td>
         <td>
             {{ item.quantity }}
             <a @click="decrementQuantity(item)">-</a>
             <a @click="incrementQuantity(item)">+</a>
         </td>
-        <td>N{{ getItemTotal(item).toFixed(2) }}</td>
+        <td>&#8358;{{ getItemTotal(item).toFixed(2) }}</td>
         <td><button class="delete" @click="removeFromCart(item)"></button></td>
     </tr>
 </template>
