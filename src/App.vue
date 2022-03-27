@@ -113,6 +113,7 @@ export default {
   mounted() {
     this.cart = this.$store.state.cart
     this.getCategories()
+    this.getClientIp()
     // this.mounted = true
   },
   methods: {
@@ -129,6 +130,33 @@ export default {
         })
       } else {
         await this.$store.commit('setStoreDetails', this.getCategories)
+      }
+    },
+    async getClientIp() {
+      let clientIp = null
+
+      await fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(response => {
+        console.log("ipAddress", response.ip);
+        clientIp = response.ip
+      });
+
+      if (this.$store.state.storeDetails.gotDetails) {
+        const data = {
+          "ip_address": clientIp,
+          "store_visited": this.$store.state.storeDetails.id
+        }
+        await axios
+        .post('visitor/', data)
+        .then(response => {
+          if (response.status == 201) {
+            console.log("Welcome")
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
       }
     },
   },
