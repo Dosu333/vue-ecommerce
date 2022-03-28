@@ -35,7 +35,7 @@
                             <!-- <td>100</td> -->
                             <td colspan="2">Total</td>
                             <td>{{ cartTotalLength }}</td>
-                            <td>N{{ cartTotalPrice.toFixed(2) }}</td>
+                            <td>&#8358;{{ cartTotalPrice.toFixed(2) }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -100,10 +100,11 @@ export default {
         }
     },
     mounted() {
+        this.getStore()
         document.title = `Checkout | ${this.$store.state.storeDetails.store_name}`
         this.cart = this.$store.state.cart
         this.shippingDetails = this.$store.state.shippingDetails
-        this.getshippingFee()
+        
         
 
         if (this.cartTotalLength > 0 && this.gotShippingFee) {
@@ -115,11 +116,16 @@ export default {
         getItemTotal(item) {
             return item.quantity * item.product.price
         },
+        async getStore() {
+            await this.$store.commit('setStoreDetails',this.getshippingFee)
+        },
         async getshippingFee() {
             this.gotShippingFee = false
 
             const address = {
-                'delivery_address': this.shippingDetails.address
+                'store_id': this.$store.state.storeDetails.id,
+                'delivery_address': this.shippingDetails.address,
+                'items': this.cart.items
             }
 
             const fee = 0
