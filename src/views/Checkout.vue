@@ -208,7 +208,7 @@ export default {
             }
             
             var handler = PaystackPop.setup({
-                key: 'pk_test_b3b4e25efbb878f097556f7238f24588ea7f5e67',
+                key: 'pk_live_b32902e7607a60b0952d8216a4d5ed22369adc49',
                 email: this.shippingDetails.email,
                 amount: (this.cartTotalPrice + this.shippingFee) * 100,
                 callback: function(response) {
