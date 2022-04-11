@@ -22,9 +22,9 @@
                             v-bind:key="item.product.id"
                         >
                             <td>{{ item.product.name }}</td>
-                            <td>N{{ item.product.price }}</td>
+                            <td>&#8358;{{ item.product.price }}</td>
                             <td>{{ item.quantity }}</td>
-                            <td>N{{ getItemTotal(item).toFixed(2) }}</td>
+                            <td>&#8358;{{ getItemTotal(item).toFixed(2) }}</td>
                         </tr>
                     </tbody>
 
@@ -36,7 +36,7 @@
                             <td colspan="2">Total</td>
                             <td>{{ cartTotalLength }}</td>
                             <td>&#8358;{{ cartTotalPrice.toFixed(2) }}</td>
-                        </tr>
+                        </tr>                                                                                                                                                    
                     </tfoot>
                 </table>
             </div>
@@ -89,7 +89,7 @@ export default {
                 email: '',
                 phone: '',
                 address: '',
-                zipcode: '',
+                state: '',
                 place: '',
             },
             shippingFee: 0,
@@ -104,6 +104,7 @@ export default {
         document.title = `Checkout | ${this.$store.state.storeDetails.store_name}`
         this.cart = this.$store.state.cart
         this.shippingDetails = this.$store.state.shippingDetails
+        this.shippingFee = this.$store.state.shippingFee
         
         
 
@@ -121,11 +122,17 @@ export default {
         },
         async getshippingFee() {
             this.gotShippingFee = false
+            let products = []
+
+            for (let i = 0; i < this.cart.items.length; i++) {
+                products.push(this.cart.items[i].product)
+            }
 
             const address = {
                 'store_id': this.$store.state.storeDetails.id,
                 'delivery_address': this.shippingDetails.address,
-                'items': this.cart.items
+                'items': products,
+                'state': this.shippingDetails.state
             }
 
             const fee = 0
@@ -191,7 +198,7 @@ export default {
                 'last_name': this.shippingDetails.last_name,
                 'email': this.shippingDetails.email,
                 'address': this.shippingDetails.address,
-                'zipcode': this.shippingDetails.zipcode,
+                'state': this.shippingDetails.state,
                 'landmark': this.shippingDetails.place,
                 'paid_amount': this.cartTotalPrice,
                 'shipping_fee': this.shippingFee,

@@ -84,9 +84,47 @@
                         </div>
 
                         <div class="field">
-                            <label>Zip code*</label>
+                            <label>State*</label>
                             <div class="control">
-                                <input type="text" class="input" v-model="zipcode">
+                                <!--- Nigeria states -->
+<select class="input" name="state" v-model="state">
+    <option value="Abia">Abia State</option>
+    <option value="Adamawa">Adamawa State</option>
+    <option value="Akwa Ibom">Akwa Ibom State</option>
+    <option value="Anambra">Anambra State</option>
+    <option value="Bauchi">Bauchi State</option>
+    <option value="Bayelsa">Bayelsa State</option>
+    <option value="Benue">Benue State</option>
+    <option value="Borno">Borno State</option>
+    <option value="Cross River">Cross River State</option>
+    <option value="Delta">Delta State</option>
+    <option value="Ebonyi">Ebonyi State</option>
+    <option value="Edo">Edo State</option>
+    <option value="Ekiti">Ekiti State</option>
+    <option value="Enugu">Enugu State</option>
+    <option value="Federal Capital Territory">Federal Capital Territory</option>
+    <option value="Gombe">Gombe State</option>
+    <option value="Imo">Imo State</option>
+    <option value="Jigawa">Jigawa State</option>
+    <option value="Kaduna">Kaduna State</option>
+    <option value="Kano">Kano State</option>
+    <option value="Katsina">Katsina State</option>
+    <option value="Kebbi">Kebbi State</option>
+    <option value="Kogi">Kogi State</option>
+    <option value="Kwara">Kwara State</option>
+    <option value="Lagos">Lagos</option>
+    <option value="Nasarawa">Nasarawa State</option>
+    <option value="Niger">Niger State</option>
+    <option value="Ogun">Ogun State</option>
+    <option value="Ondo">Ondo State</option>
+    <option value="Osun">Osun State</option>
+    <option value="Oyo">Oyo State</option>
+    <option value="Plateau">Plateau State</option>
+    <option value="Sokoto">Sokoto State</option>
+    <option value="Taraba">Taraba State</option>
+    <option value="Yobe">Yobe State</option>
+    <option value="Zamfara">Zamfara State</option>
+</select>
                             </div>
                         </div>
 
@@ -129,6 +167,7 @@ export default {
     data() {
         return {
             mounted: false,
+            gotShippingFee: false,
             cart: {
                 items: []
             },
@@ -139,7 +178,7 @@ export default {
             email: '',
             phone: '',
             address: '',
-            zipcode: '',
+            state: '',
             place: '',
             errors: []
         }
@@ -151,6 +190,7 @@ export default {
     },
     methods: {
         removeFromCart(item) {
+            
             this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)
         },
         async submitForm() {
@@ -169,8 +209,8 @@ export default {
             if (this.address === '') {
                 this.errors.push('The address field is missing!')
             }
-            if (this.zipcode === '') {
-                this.errors.push('The zip code field is missing!')
+            if (this.state === '') {
+                this.errors.push('The state field is missing!')
             }
             if (this.place === '') {
                 this.errors.push('The place field is missing!')
@@ -183,61 +223,47 @@ export default {
                     'last_name': this.last_name,
                     'email': this.email,
                     'address': this.address,
-                    'zipcode': this.zipcode,
+                    'state': this.state,
                     'place': this.place,
                     'phone': this.phone,
                 }
                 await this.$store.commit('setShippingDetails', data)
+                await this.getshippingFee()
+                
                 this.$router.push('/cart/checkout')
-                
-                
-                
-                // this.stripe.createToken(this.card).then(result => {                    
-                //     if (result.error) {
-                //         this.$store.commit('setIsLoading', false)
-                //         this.errors.push('Something went wrong with Stripe. Please try again')
-                //         console.log(result.error.message)
-                //     } else {
-                //         this.stripeTokenHandler(result.token)
-                //     }
-                // })
             }
         },
-        // async stripeTokenHandler(token) {
-        //     const items = []
-        //     for (let i = 0; i < this.cart.items.length; i++) {
-        //         const item = this.cart.items[i]
-        //         const obj = {
-        //             product: item.product.id,
-        //             quantity: item.quantity,
-        //             price: item.product.price * item.quantity
-        //         }
-        //         items.push(obj)
-        //     }
-        //     const data = {
-        //         'first_name': this.first_name,
-        //         'last_name': this.last_name,
-        //         'email': this.email,
-        //         'address': this.address,
-        //         'zipcode': this.zipcode,
-        //         'place': this.place,
-        //         'phone': this.phone,
-        //         'items': items,
-        //         'stripe_token': token.id
-        //     }
-        //     await axios
-        //         .post('/api/v1/checkout/', data)
-        //         .then(response => {
-        //             this.$store.commit('clearCart')
-        //             this.$router.push('/cart/success')
-        //         })
-        //         .catch(error => {
-        //             this.errors.push('Something went wrong. Please try again')
-        //             console.log(error)
-        //         })
-        //         this.$store.commit('setIsLoading', false)
-        // }
-        // }
+        async getshippingFee() {
+            this.gotShippingFee = false
+            let products = []
+
+            for (let i = 0; i < this.cart.items.length; i++) {
+                products.push(this.cart.items[i].product)
+            }
+
+            const address = {
+                'store_id': this.$store.state.storeDetails.id,
+                'delivery_address': this.address,
+                'items': products,
+                'state': this.state
+            }
+
+            const fee = 0
+
+            await axios
+                .post('shipping-fee/', address)
+                .then(response => {
+                // this.shippingFee = response.data.fee
+                this.$store.state.shippingFee = response.data.fee
+                console.log(response.data)
+                })
+                .catch(error => {
+                console.log(error)
+                })
+            this.gotShippingFee = true
+            localStorage.setItem('shippingFee', JSON.stringify(this.shippingFee))
+        },
+       
     },
     computed: {
         cartTotalLength() {

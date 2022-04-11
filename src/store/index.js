@@ -25,7 +25,7 @@ export default createStore({
       email: '',
       phone: '',
       address: '',
-      zipcode: '',
+      state: '',
       place: '',
     },
     shippingFee: 0
@@ -96,7 +96,7 @@ export default createStore({
       state.shippingDetails.email = data.email
       state.shippingDetails.phone = data.phone
       state.shippingDetails.address = data.address
-      state.shippingDetails.zipcode = data.zipcode
+      state.shippingDetails.state = data.state
 
       localStorage.setItem('shippingDetails', JSON.stringify(state.shippingDetails))
 
@@ -118,7 +118,7 @@ export default createStore({
         email: '',
         phone: '',
         address: '',
-        zipcode: '',
+        state: '',
         place: '',
       }
 
