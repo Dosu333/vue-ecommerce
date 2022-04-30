@@ -13,6 +13,9 @@
                 v-bind:key="product.id"
                 v-bind:product="product" />
         </div>
+        <!-- <div v-else>
+            No products
+        </div> -->
     </div>
 </template>
 
@@ -28,25 +31,31 @@ export default {
     data() {
         return {
             products: [],
-            query: ''
+            query: '',
+            storeId: '',
+            storeName: ''
         }
     },
     mounted() {
-        document.title = 'Search | DIYS'
+        
 
         let uri = window.location.search.substring(1)
         let params = new URLSearchParams(uri)
+        this.storeId = this.$store.state.storeDetails.id
+        this.storeName = this.$store.state.storeDetails.store_name
 
         if (params.get('query')) {
             this.query = params.get('query')
-            this.performSearch()
+            this.$store.commit('setStoreDetails', this.performSearch)
+            // this.performSearch()
         }
     },
     methods: {
         async performSearch() {
             this.$store.commit('setIsLoading', true)
+            document.title = `Search | ${this.$store.state.storeDetails.store_name}`
             await axios
-                .post('/api/v1/products/search/', {'query': this.query})
+                .post('search/', {'query': this.query, 'store_id':this.$store.state.storeDetails.id})
                 .then(response => {
                     this.products = response.data['products']
                 })
