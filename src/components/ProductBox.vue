@@ -1,7 +1,7 @@
 <template>
     <div class="column is-3">
-      <div class="box">
-        <figure class='image mb-4'>
+      <div class="box" >
+        <figure class='image mb-4' style="margin-top:5px;"> 
           <img :src="product.main_image" class='thumbnail'>
         </figure>
 
@@ -29,9 +29,18 @@ export default {
     margin-right: -1.25rem;
   }
   .thumbnail {
+    width:100%;
+    height: 200px;
+    object-fit:contain;
     /* max-width: 300px; */
-    max-height: 400px;
+    /* max-height: 400px; */
     /* min-width: 300px; */
-    min-height: 400px;
+    /* min-height: 400px; */
+  }
+
+  @media (min-width: 1280px){
+    .thumbnail{
+      height: 300px;
+    }
   }
 </style>
