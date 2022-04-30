@@ -40,9 +40,12 @@
           </a>
 
           <div class="navbar-dropdown">
-            <router-link class="navbar-item" v-for="category in categories" v-bind:key="category.id" v-bind:to="category.get_absolute_url">
-              {{ category.name }}
-            </router-link>
+            <span v-for="category in categories" v-bind:key="category.id">
+              <router-link class="navbar-item" v-bind:to="category.get_absolute_url" v-if="category.products.length">
+                {{ category.name }}
+              </router-link>
+            </span>
+            
           </div>
         </div>
           <!-- <router-link to='/winter' class='navbar-item'>Winter</router-link> -->
@@ -76,7 +79,7 @@
     </section>
   
   <footer class='footer'>
-    <p class="has-text-centered">Copyright (c) 2021</p>
+    <p class="has-text-centered">Copyright (c) 2022</p>
 
   </footer>
 
