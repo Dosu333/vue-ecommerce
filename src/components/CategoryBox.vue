@@ -1,6 +1,6 @@
 <template v-if="category.products.length"> 
     <div class="columns is-multiline">
-        <div class="column is-12">
+        <div class="column is-12" v-if="category.products.length">
             <h2 class="is-size-2 has-text-centered">{{ category.name }}</h2>
         </div>
 
