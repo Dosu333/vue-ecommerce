@@ -23,4 +23,4 @@ jobs:
           HOST: ${{ secrets.HOST_IP }}
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
-          script: cd boxin-mvp/ && cd vue-ecommerce && sudo git pull && sudo docker build -t store:v1 . && sudo docker stop store && sudo docker run -dp 8082:8080 --name store
+          script: cd boxin-mvp/ && cd vue-ecommerce && sudo git pull && sudo docker build -t store:v1 . && sudo docker stop store && sudo docker run -dp 8082:8080 --name store store:v1
