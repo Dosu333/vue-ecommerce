@@ -1,0 +1,26 @@
+name: Deploy Development
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@master
+
+      - name: Pull from GitHub
+        uses: appleboy/ssh-action@master
+
+        with:
+          HOST: ${{ secrets.HOST_IP }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          script: cd boxin-mvp/ && cd vue-ecommerce && sudo git pull && sudo docker build -t store:v1 && sudo docker stop store:v1 && sudo docker run -dp 8081:3000
